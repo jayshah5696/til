@@ -14,3 +14,13 @@ get comfortable with using pytorch. understand its tools and minor details
 
 ### implementation links
 - [demo.ipynb](demo.ipynb)
+
+#### things to be implemented
+- next implement linear regression
+- logistic regressiono
+- add callback functions 
+- create simple MLP
+- use object notation forward and backward
+- create typical training loop
+- use of different optimizer vs manual runs
+- Try out different tool on top of the pytorch , tabular pytorch etc
