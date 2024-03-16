@@ -6,6 +6,7 @@
 - Deeplearning advancement, compute capacity and vast amount of data caused LLM to significantly improved performance
 - earlier NLP models were task specific, and LLM allows general capabilities
 - Significant improvement is due to Transformer architecture
+
 ### 1.1 What is an LLM?
 
 - Large in LLM is both model's size and immense dataset on which its trained
@@ -58,6 +59,7 @@ GPT - taxt completion, zero shot and few shot learning
 
 language of neural networks is vectors, how to represent text as a vector?
 Conversion of any modality(text, image, video) of discrete objects to a continuous vector format(space) is called embedding
+
 - Using a specific NN layer, we can embed different data types
 ![[_resources/Chapters/c75daddcf34fd9d7bb8201acd7fd2ef2_MD5.jpeg]]
 - Different type of embeddings for text data
