@@ -2,7 +2,10 @@ import scrapy
 
 class MySpider(scrapy.Spider):
     name = 'myspider'
-    start_urls = ['https://www.constitutionofindia.net/']
+
+    def __init__(self, url=None, *args, **kwargs):
+        super(MySpider, self).__init__(*args, **kwargs)
+        self.start_urls = [url]
 
     def parse(self, response):
         # Extract all the links from the page
@@ -23,3 +26,6 @@ class MySpider(scrapy.Spider):
             'title': title,
             'content': ' '.join(content)
         }
+
+
+# command to run scrapy runspider myspider.py -a url=https://example.com -o output.json
