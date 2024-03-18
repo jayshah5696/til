@@ -28,4 +28,5 @@ class MySpider(scrapy.Spider):
         }
 
 
-# command to run scrapy runspider myspider.py -a url=https://example.com -o output.json
+# command to run 
+# scrapy runspider myspider.py -a url=https://example.com -o output.json
