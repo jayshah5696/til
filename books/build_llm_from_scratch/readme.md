@@ -29,14 +29,13 @@
 	- Training on task specific
 	- finetuning for classification task
 
-### 1.4 Using LLM for different task
-[[_resources/Chapters/a61a61ca87317de4cb109f4d30a34df0_MD5.jpeg|Open: Pasted image 20240310232943.png]]
-![[_resources/Chapters/a61a61ca87317de4cb109f4d30a34df0_MD5.jpeg]]
-Encoder - Decoder framework
-Attention is all you need -2017 paper (encoder, decoder framework)
-Variants of Transformers - BERT(Encoder only), GPT (Decoder only)
-BERT- classification task. Twitter uses bert to detect toxic content
-GPT - taxt completion, zero shot and few shot learning
+### 1.4 Using LLM for different tasks
+![](_resources/Chapters/a61a61ca87317de4cb109f4d30a34df0_MD5.jpeg)
+- Encoder - Decoder framework
+- Attention is all you need -2017 paper (encoder, decoder framework)
+- Variants of Transformers - BERT(Encoder only), GPT (Decoder only)
+- BERT- classification task. Twitter uses bert to detect toxic content
+- GPT - taxt completion, zero shot and few shot learning
 
 ### 1.6 Closer look at GPT architecture
 - GPT 3 - scaled up version of this model (GPT) has more parameter, more data
@@ -46,8 +45,7 @@ GPT - taxt completion, zero shot and few shot learning
 - Emergent property - Decoder only models are essentially next token prediction, however as size and scale increased, it showed significant improvements in performance. 
 	- Task like translation are encoder-decoder model envisioned for, decoder model can solve and do the same. 
 - Natural consequence to get exposure to large data, and it taught model general language capabilities. 
-[[_resources/Chapters/741d95a4b96218920effb483ff82c0e6_MD5.jpeg|Open: Pasted image 20240310234046.png]]
-![[_resources/Chapters/741d95a4b96218920effb483ff82c0e6_MD5.jpeg]]
+![](_resources/Chapters/741d95a4b96218920effb483ff82c0e6_MD5.jpeg)
 
 
 ## Chapter 2 Working with text data
@@ -57,7 +55,7 @@ At its core embedding is mapping - Conversion of any modality(text, image, video
 - Using a specific NN layer, we can embed different data types
 - [[_resources/Chapters/c75daddcf34fd9d7bb8201acd7fd2ef2_MD5.jpeg|Open: Pasted image 20240310234552.png]]
 - 
-![[_resources/Chapters/c75daddcf34fd9d7bb8201acd7fd2ef2_MD5.jpeg]]
+![](_resources/Chapters/c75daddcf34fd9d7bb8201acd7fd2ef2_MD5.jpeg)
 - Different type of embeddings for text data
 	- word embeddings, sentence/paragraph embeddings, 
 - Word Embeddings (used specifically in training of GPT style LLM)
@@ -75,11 +73,11 @@ At its core embedding is mapping - Conversion of any modality(text, image, video
 
 - GPT style models dont directly put words into embedding models, they go through a necessary processed called tokenization first.
 - Tokenization is the process of converting text into smaller units called tokens
-- Tokens can be words, subwords, characters or even part of words>)
+- Tokens can be words, subwords, characters or even part of words
+- 
 
 Text --> tokens --> token ids
-[[_resources/Chapters/2786a98a615820d94472413e624705fa_MD5.jpeg|Open: Pasted image 20240318210634.png]]
-![[_resources/Chapters/2786a98a615820d94472413e624705fa_MD5.jpeg]]
+![](_resources/Chapters/2786a98a615820d94472413e624705fa_MD5.jpeg)
 
 Working with tokenizer
 - Removing whitespace
