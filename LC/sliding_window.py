@@ -68,7 +68,7 @@ def find_min_list(nums, target):
 
 # o(n) solution
 
-def find_min_list(nums, target):
+def find_min_list_modified(nums, target):
     n = len(nums)
     left = total =0
     min_length=n+1
@@ -79,3 +79,34 @@ def find_min_list(nums, target):
             total-= nums[left]
             left+=1
     return min_length if min_length!=n+1 else 0
+
+
+"""
+395. Longest Substring with At Least K Repeating Characters
+Description
+Given a string s and an integer k, return the length of the longest substring of s such that 
+the frequency of each character in this substring is greater than or equal to k.
+
+Example 1
+input: s = "aaabb", k = 3
+output: 3
+Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
+
+Example 2
+input: s = "ababbc", k = 2
+output: 5
+Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+"""
+# on2 solution
+from collections import Counter
+def longest_substring(s,k):
+    n = len(s)
+    if n<k:
+        return 0
+    counter = Counter(s)
+    for c in counter:
+        if counter[c]<k:
+            return max(longest_substring(sub,k) for sub in s.split(c))
+    return len(s)
+
+# on solution with sliding window
