@@ -37,7 +37,7 @@ def generate_prompt_template(query, context_list):
 
     <output_format>
     Your response should follow this structure:
-    1. A brief introduction summarizing the query and its relevance.
+    1. A brief introduction summarizing the query topic and its relevance based on context.
     2. The main body of the answer, addressing all aspects of the query. (atleast 2-3 paragraphs)
     3. A concise conclusion that recaps the key points.
     </output_format>
