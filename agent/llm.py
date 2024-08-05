@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Safely get the API key
-api_key = os.getenv('GROQ_API_KEY')
-if not api_key:
-    raise ValueError("GROQ_API_KEY not found in environment variables")
+# api_key = os.getenv('GROQ_API_KEY')
+# if not api_key:
+#     raise ValueError("GROQ_API_KEY not found in environment variables")
 
 # print(api_key)
 
