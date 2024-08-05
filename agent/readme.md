@@ -28,25 +28,35 @@ The name **Pravāha** (प्रवाह) is derived from Sanskrit, meaning "fl
 
 **System Architecture:**
 
-```mermaid
-graph LR
-    A[Query] --> B(Search Engine)
-    B --> C{Retrieval Engine}
-    C --> D[LLM]
-    D --> E(Response)
-    E --> A
+```dot
+digraph G {
+    A [label="Query"];
+    B [label="Search Engine"];
+    C [label="Retrieval Engine"];
+    D [label="LLM"];
+    E [label="Response"];
     
-    subgraph Search_Engine
-        B1[Tavily Search API]
-    end
+    A -> B;
+    B -> C;
+    C -> D;
+    D -> E;
+    E -> A;
     
-    subgraph Retrieval_Engine
-        C1[BM25 & Semantic Search]
-    end
+    subgraph cluster_0 {
+        label = "Search Engine";
+        B1 [label="Tavily Search API"];
+    }
     
-    subgraph LLM
-        D1[LiteLLM (OpenAI)]
-    end
+    subgraph cluster_1 {
+        label = "Retrieval Engine";
+        C1 [label="BM25 & Semantic Search"];
+    }
+    
+    subgraph cluster_2 {
+        label = "LLM";
+        D1 [label="LiteLLM (OpenAI)"];
+    }
+}
 ```
 
 ## Getting Started
