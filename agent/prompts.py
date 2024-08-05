@@ -21,6 +21,7 @@ def generate_prompt_template(query, context_list):
     Then, check that <sketchpad> items are factually consistent with the <context>.
     Finally, return a <summary> based on the <sketchpad>.</role>
     <instructions>
+    each line should have an inline citation of url and directly address the context. do not provide any information outside of the context
     1. Analyze the given query and context carefully.
     2. Synthesize a comprehensive response that directly addresses the query.
     3. Use information from the provided context, ensuring accuracy and relevance.
