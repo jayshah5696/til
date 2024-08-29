@@ -11,10 +11,8 @@ image = (
 web_app = FastAPI()
 app = App('Modalapp')
 
-
-
-# @app.function(image=Image.from_registry("downloads.unstructured.io/unstructured-io/unstructured:latest"), gpu=gpu.A100())
-@app.function(image=image, gpu='any')
+# Set a timeout of 15 minutes (900 seconds) for the FastAPI endpoint
+@app.function(image=image, gpu='any', timeout=900)
 @web_app.post("/partition-pdf/")
 async def partition_pdf_endpoint(file: UploadFile):
     try:
@@ -24,10 +22,6 @@ async def partition_pdf_endpoint(file: UploadFile):
         # Read the uploaded file into memory
         pdf_content = await file.read()
         pdf_file = BytesIO(pdf_content)
-        # file_location = f"/tmp/{file.filename}"
-        # print(file_location)
-        # with open(file_location, "wb") as f:
-        #     f.write(await file.read())
 
         # Partition the PDF
         elements = partition_pdf(
@@ -45,7 +39,8 @@ async def partition_pdf_endpoint(file: UploadFile):
         print(e)
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.function(image=image,gpu='any')
+# Set a timeout of 15 minutes (900 seconds) for the Modal app function
+@app.function(image=image, gpu='any', timeout=900)
 @asgi_app()
 def my_function():
     return web_app
