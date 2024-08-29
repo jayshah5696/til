@@ -1,0 +1,23 @@
+# Start of Selection
+# Use the official Python 3.11 image as the base
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libmagic-dev \
+    poppler-utils \
+    tesseract-ocr \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install the unstructured library with PDF support and local inference
+RUN pip install --no-cache-dir "unstructured[pdf,local-inference]"
+
+# Set the working directory
+WORKDIR /app
+
+# Copy your application code (if any)
+COPY . /app
+
+# Command to run your application (if any)
+CMD ["python", "your_script.py"]
+# End of Selection
