@@ -1,46 +1,62 @@
-from fastapi import FastAPI, UploadFile, HTTPException
+import os
+import logging
+from io import BytesIO
+from fastapi import FastAPI, UploadFile, HTTPException, status
 from modal import App, asgi_app, Image, gpu
+from pydantic import BaseModel
 
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Define the base image with necessary dependencies
 image = (
     Image.debian_slim(python_version="3.11")
-    .apt_install(["poppler-utils", "tesseract-ocr", "libgl1-mesa-glx", "libglib2.0-0"])  # Install required libraries
+    .apt_install(["poppler-utils", "tesseract-ocr", "libgl1-mesa-glx", "libglib2.0-0"])
     .pip_install("unstructured", "unstructured[pdf,local-inference]")
 )
-# Initialize FastAPI app
 
+# Initialize FastAPI and Modal apps
 web_app = FastAPI()
-app = App('Modalapp')
+app = App('ModalPDFProcessor')
 
-# Set a timeout of 15 minutes (900 seconds) for the FastAPI endpoint
+# Pydantic model for response validation
+class PDFElement(BaseModel):
+    type: str
+    text: str = None
+    metadata: dict = None
+    element_id: str = None
+
 @app.function(image=image, gpu='any', timeout=900)
-@web_app.post("/partition-pdf/")
-async def partition_pdf_endpoint(file: UploadFile):
+@web_app.post("/process-pdf/", response_model=list[PDFElement])
+async def process_pdf(file: UploadFile):
     try:
         from unstructured.partition.pdf import partition_pdf
-        from io import BytesIO
 
         # Read the uploaded file into memory
         pdf_content = await file.read()
         pdf_file = BytesIO(pdf_content)
 
-        # Partition the PDF
+        # Process the PDF
         elements = partition_pdf(
-            file=pdf_file,  # Use 'file' instead of 'pdf_path'
+            file=pdf_file,
             strategy="hi_res",
             infer_table_structure=True,
             extract_images_in_pdf=True,
+            hi_res_model_name='yolox',
             max_partition=None
         )
 
-        # Return the partitioned elements as JSON
-        return {"elements": [element.to_dict() for element in elements]}
+        # Convert elements to dict
+        elements_dict = [el.to_dict() for el in elements]
+
+        return elements_dict
 
     except Exception as e:
-        print(e)
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Error processing PDF: {e}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Failed to process PDF: {str(e)}")
 
-# Set a timeout of 15 minutes (900 seconds) for the Modal app function
 @app.function(image=image, gpu='any', timeout=900)
 @asgi_app()
-def my_function():
+def fastapi_app():
     return web_app
