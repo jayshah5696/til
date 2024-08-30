@@ -61,7 +61,7 @@ image = (
 ```
 
 ```python
-from model import Image
+from modal import Image
 import modal
 
 def download_models():
@@ -199,8 +199,8 @@ Polling for job results using ```model.function.FunctionCall.get()```
 
 ```python
 import fastapi
-from model import App, asgi_app
-from model.function import FunctionCall
+from modal import App, asgi_app
+from modal.function import FunctionCall
 
 app=App('Modalapp')
 web_app = fastapi.FastAPI()
