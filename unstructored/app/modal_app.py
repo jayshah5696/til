@@ -9,11 +9,12 @@ from pydantic import BaseModel
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Define the base image with necessary dependencies
+# Define the base image with necessary dependencies and pre-download the YOLOX model
 image = (
     Image.debian_slim(python_version="3.11")
     .apt_install(["poppler-utils", "tesseract-ocr", "libgl1-mesa-glx", "libglib2.0-0"])
     .pip_install("unstructured", "unstructured[pdf,local-inference]")
+    .run_commands("python -c \"from unstructured_inference.models.base import get_model; get_model('yolox')\"")
 )
 
 # Initialize FastAPI and Modal apps
