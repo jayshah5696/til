@@ -19,7 +19,7 @@ api_key=os.environ['TVLY_API_KEY']
 def search_query(query:str):
     tavily_client = TavilyClient(api_key=api_key)
     results = tavily_client.search(query,
-                               include_raw_content=True)
+                               include_raw_content=False)
     return results
 
 

@@ -50,6 +50,7 @@ async def main():
         console.print("Performing keyword search on the input query...")
         context = await retrival.keyword_search(input_query,10)
         # context = await retrival.combined_search(input_query,10)
+        context = await retrival.rerank_chunks(input_query, context, 10)
         console.print(f"Retrieved context:")
 
         console.print("Generating prompt template...")
@@ -57,12 +58,17 @@ async def main():
         console.print(f"Generated prompt: {prompt}")
 
         console.print("Getting completion from LLM...")
-        output = completion_llm(prompt,model='openai/gpt-4o-mini',temperature=0.5)
+        # output = completion_llm(prompt,model='openai/gpt-4o-mini',temperature=0.5)
         console.print(f"LLM output:")
+        output = completion_llm(prompt,model='openai/gpt-4o-mini',temperature=0.5,stream=True)
+        for part in output:
+            console.clear()
+            console.print(Markdown(part.choices[0].delta.content or ""), style="bold green")
+        
         
         # Render the Markdown output using rich
-        md = Markdown(output)
-        console.print(md)
+        # md = Markdown(output)
+        # console.print(md)
 
 if __name__ == "__main__":
     asyncio.run(main())
